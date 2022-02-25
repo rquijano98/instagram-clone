@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mock Instagram Version 2</title>
+
+    <link href="css/general.css" rel="stylesheet" />
+    <link href="css/header-component.css" rel="stylesheet" />
+    <link href="css/stories-component.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script defer type="module" src="js/controller.js"></script>
+
+    <script
+      defer
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      defer
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body>
+
+      <div class="header-holder">
+      
+          <header class="header-bar container">
+            <div class="first-half">
+              <img src="images/written-instagram-logo.png" class="written-logo" />
+            </div>
+          <div class="second-half">
+            <input class="search-bar" type="text" placeholder="Search" />
+            <ion-icon name="search-outline" class="search-icon"></ion-icon>
+            <ion-icon name="close-circle" class="close-icon hidden"></ion-icon>
+            <nav class="nav-icons">
+              <button class="icon-container">
+                <ion-icon name="home-outline"></ion-icon>
+              </button>
+              <button class="icon-container">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+              </button>
+              <button class="icon-container">
+                <ion-icon name="add-circle-outline"></ion-icon>
+              </button>
+              <button class="icon-container">
+                <ion-icon name="compass-outline"></ion-icon>
+              </button>
+              <button class="icon-container">
+                <ion-icon name="heart-outline"></ion-icon>
+              <button class="icon-container">
+                <ion-icon name="person-outline"></ion-icon>
+              </button>
+            </nav>
+          </div>
+        </header>
+      </div>  
+
+      <div class="container">
+
+        <main>
+          <section class="stories-container">
+            <div class="story">
+              <span class="profile-pic-container story-profile-pic-container">
+                <img src = 'https://randomuser.me/api/portraits/med/women/63.jpg'/>
+              </span>
+
+              <span class="username">username</span>
+            </div>
+            <div class="story">
+            </div>
+            <div class="story">
+            </div>
+          </section>
+        </main>
+      </div>
+    
+  </body>
+</html>

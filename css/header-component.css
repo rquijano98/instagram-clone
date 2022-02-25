@@ -1,0 +1,113 @@
+.header-holder {
+  width: 100%;
+  height: 6rem;
+  position: fixed;
+  top: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+}
+
+.header-bar {
+  display: grid;
+  grid-template-columns: 3fr 5fr;
+  justify-items: center;
+  align-items: center;
+  padding: 0 1.6rem 0 1.6rem;
+}
+
+.header-bar .first-half {
+  justify-self: start;
+  width: 100%;
+}
+
+.header-bar .first-half:hover {
+  cursor: pointer;
+}
+.header-bar .first-half:active {
+  opacity: 50%;
+}
+
+.header-bar .second-half {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  width: 100%;
+}
+
+.search-bar {
+  font-size: 1.6rem;
+  font-family: inherit;
+  width: 26.8rem;
+  background-color: rgba(238, 238, 238, 0.6);
+  border: none;
+  border-radius: 6px;
+  justify-self: start;
+  align-self: stretch;
+  padding-left: 4.8rem;
+}
+
+.search-bar::placeholder {
+  color: #888;
+}
+
+.search-bar:focus {
+  outline: none;
+}
+
+.close-icon,
+.search-icon {
+  font-size: 1.8rem;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-46%);
+}
+
+.search-icon {
+  left: 1rem;
+}
+
+.hidden.search-icon {
+  display: none;
+}
+
+.close-icon {
+  color: #ccc;
+  left: 23.8rem;
+}
+
+.close-icon:hover {
+  cursor: pointer;
+}
+
+.hidden.close-icon {
+  display: none;
+}
+
+.written-logo {
+  height: 3.2rem;
+  width: 12rem;
+  /* padding-left: 1.6rem; */
+}
+
+button:hover,
+button:active {
+  cursor: pointer;
+}
+
+.nav-icons {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  justify-self: end;
+}
+
+.nav-icons button {
+  background-color: transparent;
+  border: none;
+}
+
+.second-half .nav-icons button ion-icon {
+  font-size: 2.8rem;
+}
