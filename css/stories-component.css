@@ -5,7 +5,12 @@
   margin-top: 9.2rem;
   display: flex;
   align-items: center;
+}
+
+.stories-list {
+  display: flex;
   gap: 2.4rem;
+  list-style: none;
 }
 
 .story {
