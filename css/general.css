@@ -18,11 +18,37 @@ body {
 
 main {
   display: grid;
-  grid-template-columns: 70rem;
-  justify-items: center;
+  grid-template-columns: 66rem;
+  row-gap: 2.4rem;
+  margin-left: 1.6rem;
+  /* justify-items: center; */
 }
 
 .container {
   margin: 0 auto 0 auto;
   width: 105rem;
+}
+
+.arrow {
+  font-size: 3rem;
+  top: 50%;
+  border-radius: 50%;
+  z-index: 999;
+  position: absolute;
+}
+
+.arrow:hover {
+  cursor: pointer;
+}
+
+.hidden.arrow {
+  display: none;
+}
+
+.left-arrow {
+  left: 2%;
+}
+
+.right-arrow {
+  right: 2%;
 }

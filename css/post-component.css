@@ -1,0 +1,285 @@
+.post {
+  border: 1px solid #ddd;
+  width: 100%;
+  overflow: none;
+}
+
+.title-bar {
+  display: flex;
+  align-items: center;
+  padding: 1.4rem;
+  gap: 1.6rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.title-bar img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  border: 2px #fff solid;
+}
+
+.title-bar .profile-picture-container {
+  cursor: pointer;
+  position: relative;
+  height: 3.6rem;
+  width: 3.6rem;
+  border-radius: 50%;
+}
+
+.title-bar .profile-picture-container::after {
+  content: "";
+  display: block;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #fbb204, #b9009c);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -9;
+}
+.title-bar .clicked.profile-picture-container::after {
+  background: none;
+}
+
+.post-username {
+  color: #000;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.post-username:active {
+  color: #888;
+}
+
+.dots-icon {
+  margin-left: auto;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.img-container {
+  overflow: hidden;
+  max-height: 65.8rem;
+  position: relative;
+}
+
+.post-image-list {
+  display: flex;
+  overflow-x: scroll;
+  padding-bottom: 1.6rem;
+}
+
+.img-container li img {
+  width: 65.8rem;
+  height: 65.8rem;
+}
+
+.utilities-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.2rem 1.4rem 1.2rem 1.4rem;
+  position: relative;
+  font-size: 2.8rem;
+  color: black;
+}
+
+.utilities-bar ion-icon:hover,
+.utilities-bar ion-icon:active {
+  color: #888;
+  cursor: pointer;
+}
+
+.utility-icons {
+  display: flex;
+  gap: 1.4rem;
+}
+
+.dots {
+  display: flex;
+  gap: 0.4rem;
+  position: absolute;
+  top: 1.2rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  height: 0.6rem;
+  width: 0.6rem;
+  border-radius: 50%;
+  background-color: #aaa;
+}
+
+.dot.active {
+  background-color: #1098ad;
+}
+
+.comments-and-likes {
+  padding: 0 1.4rem 2rem 1.4rem;
+  font-size: 1.3rem;
+  color: #000;
+}
+
+.liked-by-container {
+  display: flex;
+  gap: 2rem;
+}
+
+.text-portion {
+  padding-top: 3px;
+}
+
+.user-commenter:link,
+.user-commenter:visited,
+.text-portion a:link,
+.text-portion a:visited {
+  text-decoration: none;
+  color: #000;
+  font-weight: 700;
+}
+
+.user-commenter:hover,
+.text-portion .user-who-liked:hover {
+  text-decoration: underline solid #000;
+}
+
+.user-commenter:active,
+.text-portion a:active {
+  color: #888;
+}
+
+.images-portion:hover {
+  cursor: pointer;
+}
+
+.images-portion:active {
+  opacity: 0.5;
+}
+
+.images-portion img {
+  position: relative;
+  height: 2.4rem;
+  width: 2.4rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  margin-right: -1.2rem;
+}
+
+.images-portion img:first-child {
+  z-index: 9999;
+}
+
+.images-portion img:last-child {
+  z-index: -9999;
+}
+
+.comments-container {
+  padding: 0.8rem 0 0.6rem 0;
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+  line-height: 1.5;
+}
+
+/* This section handles the "See more" button for every comment */
+
+.comment {
+  /* This is to ensure that a comment cannot ever extend beyond the comment container */
+  overflow-wrap: break-word;
+}
+.comment .second-part {
+  display: none;
+}
+
+.more-clicked .second-part {
+  display: inline;
+}
+
+.the-word-more {
+  color: #888;
+}
+
+.the-word-more:hover {
+  cursor: pointer;
+}
+
+.more-clicked .more {
+  display: none;
+}
+
+.date-posted:link,
+.date-posted:visited,
+.view-remaining-comments:link,
+.view-remaining-comments:visited {
+  text-decoration: none;
+  color: #888;
+}
+
+.date-posted:active,
+.view-remaining-comments:active {
+  color: #bbb;
+}
+
+.date-posted:link,
+.date-posted:visited {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.feedback-bar {
+  padding: 1rem 1.2rem 1rem 1.4rem;
+  border-top: #eee 1px solid;
+  display: flex;
+  gap: 2.4rem;
+}
+
+.feedback-bar ion-icon {
+  font-size: 2.8rem;
+  color: #000;
+}
+
+.feedback-bar form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.feedback-bar input {
+  border: none;
+  flex: 1 0;
+}
+
+.feedback-bar input:focus {
+  outline: none;
+}
+
+.feedback-bar button {
+  cursor: default;
+  background-color: transparent;
+  border: none;
+  padding-left: 1.2rem;
+  color: #bae0fe;
+  font-weight: 600;
+}
+
+.feedback-bar .active-button {
+  color: #4dabf7;
+}
+
+.feedback-bar .active-button:hover {
+  cursor: pointer;
+}
+
+.feedback-bar .active-button:active {
+  color: #74c0fc;
+}
+
+/* Things to do tomorrow
+1) Add the fake emoji window on the smiley face
+3) Make it so the add a comment input grows into multiple lines when the text reaches the end 
+4) Fill up the post elements with random user information from the state
+5) Make it so clicking the heart fills it with red and adds 1 to number of likes
+ */
