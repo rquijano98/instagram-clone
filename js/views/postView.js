@@ -45,16 +45,19 @@ class PostView extends Views {
     <div class="comments-and-likes">
       <div class="liked-by-container">
         <span class="images-portion">` +
-      `
-          <img src="${
-            state.users.storyUsers[
-              Math.floor(Math.random() * state.users.storyUsers.length)
-            ].picture.thumbnail
-          }"/>
-          <img src="https://randomuser.me/api/portraits/thumb/men/67.jpg"/>
-          <img src="https://randomuser.me/api/portraits/thumb/men/68.jpg"/>
-        </span>
-        <p class="text-portion">Liked by <a href="#" class="user-who-liked">bob_moore</a> and <a href="#" class="others-who-liked">123 others</a> </p>` +
+      (additionalUsers.length > 0
+        ? additionalUsers
+            .map(
+              (user) => `
+          <img src="${user.picture.thumbnail}"/>
+          `
+            )
+            .join("")
+        : "") +
+      `</span>
+      <p class="text-portion">Liked by <a href="#" class="user-who-liked">${
+        additionalUsers[0] ? additionalUsers[0].login.username : "null"
+      }</a> and <a href="#" class="others-who-liked">123 others</a> </p>` +
       `</div>
 
       <div class="comments-container">
