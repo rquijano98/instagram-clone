@@ -1,0 +1,19 @@
+{
+  "name": "mock-instagram-v2",
+  "version": "1.0.0",
+  "description": "",
+  "default": "js/controller.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ionicons": "^6.0.1",
+    "lorem-ipsum": "^2.0.4"
+  },
+  "devDependencies": {
+    "parcel": "^2.3.2",
+    "process": "^0.11.10"
+  }
+}

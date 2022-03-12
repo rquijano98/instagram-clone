@@ -1,0 +1,113 @@
+.stories-container {
+  /* max-width: 61.4rem; */
+  width: 100%;
+  height: 11.9rem;
+  border: 1px solid #ddd;
+  margin-top: 9.2rem;
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+  position: relative;
+}
+
+.stories-list {
+  height: 100%;
+  overflow-x: scroll;
+  display: flex;
+  gap: 2.4rem;
+  list-style: none;
+  box-sizing: content-box;
+  padding: 3.4rem 1.2rem 0 1.2rem;
+  /* position: relative; */
+}
+
+.stories-container .arrow {
+  color: #fff;
+  filter: drop-shadow(0 0 5px rgb(0 0 0/ 0.3));
+  transform: translateY(-60%);
+}
+
+.blank-space-1 {
+  /* position: absolute;
+  left: 0; */
+  order: -9999;
+  background-color: #fff;
+  padding: 1px;
+  margin-right: -1.2rem;
+}
+
+.blank-space-2 {
+  /* position: absolute;
+  right: 0; */
+  order: 9999;
+  background-color: #fff;
+  padding: 1px;
+  margin-left: -1.2rem;
+}
+
+.story {
+  height: 8.8rem;
+  width: 6.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  /* text-overflow: ellipsis; */
+  cursor: pointer;
+  position: relative;
+}
+
+.username {
+  display: inline-block;
+  height: 2rem;
+  color: #000;
+  width: 6.4rem;
+  font-size: 1.2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.stories-container .story img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  border: solid 2px #fff;
+  position: relative;
+}
+
+.profile-pic-container {
+  height: 6.4rem;
+  width: 6.4rem;
+  border-radius: 50%;
+  position: relative;
+}
+
+.story .profile-pic-container::before {
+  content: "";
+  display: block;
+  height: 6.8rem;
+  width: 6.8rem;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #fbb204, #b9009c);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -9;
+}
+
+/* After a story has been clicked */
+
+.clicked.story {
+  order: 99;
+}
+
+.clicked .username {
+  color: #999;
+}
+.clicked .profile-pic-container::before {
+  background: linear-gradient(45deg, #ddd, #ddd);
+  height: 6.7rem;
+  width: 6.7rem;
+}

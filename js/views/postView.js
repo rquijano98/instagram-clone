@@ -1,13 +1,30 @@
 import { Views } from "./Views.js";
 
-import { WORDS_PER_COMMENT } from "../config.js";
-import { YOUR_PERSONAL_USERNAME } from "../config.js";
-import { state } from "../model.js";
+import {
+  WORDS_PER_COMMENT,
+  YOUR_PERSONAL_USERNAME,
+  MAXIMUM_ADDITIONAL_COMMENTS_PER_POST,
+  MINIMUM_ADDITIONAL_COMMENTS_PER_POST,
+  MAXIMUM_ADDITIONAL_LIKES_PER_POST,
+} from "../config.js";
+
+// import { loremIpsum } from "lorem-ipsum";
 
 class PostView extends Views {
   _parentElement = document.querySelector(".post");
 
   _generateMarkup(additionalUsers) {
+    console.log(additionalUsers);
+    const numberOfAdditionalLikes = this._generateNumber(
+      // Having the minimum additional likes be the additionalusers length + 1 will: 1) make it so there is at least 1 like per post, and 2) make it so that you won't ever have a situation where there are 0 additional likes AND multiple different profile pictures in the "Liked by" section; situation 1 (1 like per post) is because currently, this code does not properly function if a post does not have at least 1 like; situation 2 exists to prevent a situation that would never happen on actual instagram
+      additionalUsers.length + 1,
+      additionalUsers.length + MAXIMUM_ADDITIONAL_LIKES_PER_POST + 1
+    );
+    const numberOfComments = this._generateNumber(
+      MINIMUM_ADDITIONAL_COMMENTS_PER_POST,
+      MAXIMUM_ADDITIONAL_COMMENTS_PER_POST
+    );
+
     const markup =
       `
     <header class="title-bar">
@@ -44,7 +61,9 @@ class PostView extends Views {
     </div> 
     <div class="comments-and-likes">
       <div class="liked-by-container">
-        <span class="images-portion">` +
+        <div class="images-portion ${
+          additionalUsers.length === 0 ? "hidden" : ""
+        }">` +
       (additionalUsers.length > 0
         ? additionalUsers
             .map(
@@ -54,24 +73,36 @@ class PostView extends Views {
             )
             .join("")
         : "") +
-      `</span>
+      (additionalUsers.length > 0
+        ? `
+        </div>
       <p class="text-portion">Liked by <a href="#" class="user-who-liked">${
-        additionalUsers[0] ? additionalUsers[0].login.username : "null"
-      }</a> and <a href="#" class="others-who-liked">123 others</a> </p>` +
+        additionalUsers[0].login.username
+      }</a> and <a href="#" class="others-who-liked">${numberOfAdditionalLikes} other${
+            numberOfAdditionalLikes > 1 ? "s" : ""
+          }</a> </p>
+        
+        `
+        : `
+        </div>
+        <p class="text-portion"><a href = "#" class="others-who-liked total-likes">${numberOfAdditionalLikes} like${
+            numberOfAdditionalLikes > 1 ? "s" : ""
+          }</a></p>
+
+        `) +
       `</div>
 
       <div class="comments-container">
-        <p class="comment"><a href="#" class="user-commenter">billy_bob78</a> Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste architecto unde tempora, repellat fuga dolorum voluptates ipsa. Unde numquam saepe, veniam facere sunt quae porro modi, optio minus ut consequuntur.</p>
-        <a href="#" class="view-remaining-comments">View 5 comments</a>
+        <p class="comment"><a href="#" class="user-commenter">${
+          this._data.users.postUsers[0].login.username
+        }</a> Lorem ipsum </p>
+        <a href="#" class="view-remaining-comments ${
+          numberOfComments === 0 ? "hidden" : ""
+        }">View ${
+        numberOfComments > 1 ? `all ${numberOfComments} comments` : "1 comment"
+      }</a>
       </div>
       <a href="#" class="date-posted">15 hours ago</a>
-    </div>
-    <div class="feedback-bar">
-      <ion-icon name="happy-outline"></ion-icon>
-      <form>
-        <input placeholder="Add a comment..."/>
-        <button>Post</button>
-      </form>
     </div>
     `;
 
@@ -84,6 +115,8 @@ class PostView extends Views {
     this._clickStory();
     this._addComment();
     this._seeMoreHandler();
+    this._getInputWidth();
+    this._expandInputHeight();
   }
 
   _createObservers() {
@@ -206,10 +239,10 @@ class PostView extends Views {
 
   _addComment() {
     const commentBar = this._parentElement.querySelector("form");
-    const commentInput = this._parentElement.querySelector("input");
+    const commentInput = this._parentElement.querySelector("textarea");
 
     // THIS FUNCTION IS NOT COMPLETE
-    const callback = function (e) {
+    const callbackForPressingPost = function (e) {
       e.preventDefault();
       const newCommentHTML = `
       <p class="comment"><a href="#" class="user-commenter">${YOUR_PERSONAL_USERNAME}</a> ${commentInput.value}</p>
@@ -228,12 +261,24 @@ class PostView extends Views {
       this._seeMoreHandler(newComment);
 
       commentInput.value = "";
-      this._parentElement
-        .querySelector("button")
-        .classList.remove("active-button");
+      commentBar.querySelector("button").classList.remove("active-button");
     };
 
-    commentBar.addEventListener("submit", callback.bind(this));
+    // THis will be the callback function for pressing enter in the textarea; it essentially just calls the callback for pressing the post button, but it only does so when enter is pressed
+    const callbackForPressingEnter = function (e) {
+      if (e.key === "Enter") callbackForPressingPost.call(this, e);
+    };
+
+    // The event listeners for either:
+
+    // Pressing the post button
+    commentBar.addEventListener("submit", callbackForPressingPost.bind(this));
+
+    // Pressing enter within the textarea
+    commentInput.addEventListener(
+      "keydown",
+      callbackForPressingEnter.bind(this)
+    );
 
     commentInput.addEventListener("input", function (e) {
       if (commentInput.value)
@@ -248,10 +293,10 @@ class PostView extends Views {
       .firstElementChild
   ) {
     // Get the username of the comment
-    const username = comment.firstElementChild.textContent;
+    const username = comment.firstElementChild?.textContent;
 
     // Get the actual comment itself
-    const commentText = comment.lastChild.textContent;
+    const commentText = comment.lastChild?.textContent;
 
     if (commentText.length > WORDS_PER_COMMENT) {
       const usernameHTML = `<a href="#" class="user-commenter">${username}</a>`;
@@ -279,6 +324,71 @@ class PostView extends Views {
       ?.addEventListener("click", function () {
         comment.classList.add("more-clicked");
       });
+  }
+
+  // ALL OF THESE FUNCTIONS ARE TO PROPERLY FORMAT THE TEXTAREA INPUT
+  /////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
+
+  _getCssStyle(element, prop) {
+    return window.getComputedStyle(element, null).getPropertyValue(prop);
+  }
+
+  _getInputFontInformation(el = this._parentElement.querySelector("textarea")) {
+    const fontWeight = this._getCssStyle(el, "font-weight");
+    const fontSize = this._getCssStyle(el, "font-size");
+    const fontFamily = this._getCssStyle(el, "font-family");
+
+    return `${fontWeight} ${fontSize} ${fontFamily}`;
+  }
+
+  _getInputWidth(
+    text = this._parentElement.querySelector("textarea").value,
+    font = this._getInputFontInformation()
+  ) {
+    const canvas =
+      this._getInputWidth.canvas ||
+      (this._getInputWidth.canvas = document.createElement("canvas"));
+    const context = canvas.getContext("2d");
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  _expandInputHeight() {
+    const input = this._parentElement.querySelector("textarea");
+    const inputEndOfLine = 530;
+
+    const callback = function (e) {
+      console.log(this._getInputWidth());
+      if (!input) input.setAttribute("rows", 2);
+
+      if (input.getAttribute("rows") !== 5) input.style.overflow = "hidden";
+
+      if (this._getInputWidth() < inputEndOfLine) input.setAttribute("rows", 2);
+      else if (
+        this._getInputWidth() > inputEndOfLine &&
+        this._getInputWidth() < inputEndOfLine * 2
+      )
+        input.setAttribute("rows", 3);
+      else if (
+        this._getInputWidth() > inputEndOfLine * 2 &&
+        this._getInputWidth() < inputEndOfLine * 3
+      )
+        input.setAttribute("rows", 4);
+      else {
+        input.setAttribute("rows", 5);
+        input.style.overflow = "auto";
+      }
+    };
+    input.addEventListener("keydown", callback.bind(this));
+  }
+  /////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
+
+  _generateNumber(min, max) {
+    const randomNumber = Math.round(Math.random() * (max - min) + min);
+    return randomNumber;
   }
 }
 
