@@ -3,6 +3,7 @@ import storiesView from "./views/storiesView.js";
 import * as model from "./model.js";
 import suggestionView from "./views/suggestionView.js";
 import postView from "./views/postView.js";
+import allPostsView from "./views/allPostsView.js";
 
 const init = function () {
   searchBarView.addSearchJS();
@@ -32,6 +33,8 @@ const init2 = async function () {
     model.pullRandomUsers(model.state.users.storyUsers)
   );
   postView.addMarkupJS();
+
+  allPostsView.uniqueRender(model.state);
 
   // suggestionView.createObserver();
   // }

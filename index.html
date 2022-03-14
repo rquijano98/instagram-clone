@@ -21,16 +21,10 @@
 
     <script defer type="module" src="js/controller.js"></script>
 
-    <script
-      defer
-      type="module"
+    <!-- <script
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-    ></script>
-    <script
-      defer
-      nomodule
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-    ></script>
+      type="module"
+    ></script> -->
   </head>
   <body>
 
@@ -91,7 +85,7 @@
           </section>
 
 
-          <section class="post">
+          <section class="post post-1">
             <!-- <header class="title-bar">
               <span class="profile-picture-container"><img src = "https://randomuser.me/api/portraits/thumb/women/63.jpg"/></span>
               <span class="post-username">username</span>
@@ -130,13 +124,20 @@
               </div>
               <a href="#" class="date-posted">15 hours ago</a>
             </div> -->
-            <div class="feedback-bar">
-              <ion-icon name="happy-outline"></ion-icon>
+            <!-- <div class="hidden feedback-bar">
+
+              <div class="emoji-container">
+                <span class="coming-soon">Coming soon.. emojis to add to your comments :)</span>
+              </div>
+              <span class="mini-square"></span>
+
+              <ion-icon class="happy-icon" name="happy-outline"></ion-icon>
               <form>
                 <textarea rows="2" placeholder="Add a comment..."></textarea>
+                <span class="textarea" role="textbox" contenteditable></span>
                 <button>Post</button>
               </form>
-            </div> 
+            </div>  -->
           </section>
 
 
@@ -170,6 +171,9 @@
           </section>
         </main>
       </div>
-    
+      <script
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      type="module"
+    ></script>
   </body>
 </html>

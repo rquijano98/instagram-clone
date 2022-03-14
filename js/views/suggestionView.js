@@ -4,7 +4,7 @@ class SuggestionView extends Views {
   _parentElement = document.querySelector(".suggestion-card-list");
   _grandparentElement = document.querySelector(".suggestion-container");
 
-  _generateMarkup(additionalData) {
+  _generateMarkup() {
     const markup =
       `<li> <span class = 'blank-space blank-space-1'></span></li>` +
       this._data
@@ -99,7 +99,6 @@ class SuggestionView extends Views {
   _createObserver() {
     const observerFunction = function (entries) {
       // if (entries[0].isIntersecting) return;
-      console.log("hello");
 
       if (entries[0].target === this._parentElement.firstElementChild)
         this._grandparentElement

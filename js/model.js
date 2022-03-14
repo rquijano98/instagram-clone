@@ -12,6 +12,7 @@ export const state = {
 
   pictures: {
     allPics: {},
+    postPics: {},
   },
 };
 
@@ -64,8 +65,6 @@ export const getPics = async function () {
     const data = await res.json();
 
     state.pictures.allPics = data;
-
-    console.log(state);
   } catch (err) {
     throw err;
   }
@@ -82,17 +81,18 @@ export const delegatePics = function () {
   // This while loop will create new properties within the state.pictures property; these new properties will represent 1 post each, and have a random number of pictures in them
   while (picturesUsed <= state.pictures.allPics.length - 5) {
     const picturesForThisPost = randomInt();
-    state.pictures[`picsPost${postsCreated}`] = state.pictures.allPics.slice(
-      picturesUsed,
-      picturesUsed + picturesForThisPost
-    );
+    state.pictures.postPics[`postPics${postsCreated}`] =
+      state.pictures.allPics.slice(
+        picturesUsed,
+        picturesUsed + picturesForThisPost
+      );
     picturesUsed += picturesForThisPost;
     postsCreated++;
   }
 
   // This will create the last "picsPost" property; the reason it had to be done this way is because above, the loop can end with either 5/4/3/2/or 1 pic that has not yet been used; this line
   // Will use any last pictures that have not been used
-  state.pictures[`picsPost${postsCreated}`] =
+  state.pictures.postPics[`postPics${postsCreated}`] =
     state.pictures.allPics.slice(picturesUsed);
 };
 
@@ -103,7 +103,7 @@ export const pullRandomUsers = function (users) {
   const randomUsers = [];
 
   for (let i = 1; i <= randomNumberOfUsers; i++) {
-    const randomUserIndex = Math.floor(Math.random() * users.length) + 1;
+    const randomUserIndex = Math.floor(Math.random() * (users.length - 1)) + 1;
 
     const randomUser = users[randomUserIndex];
 

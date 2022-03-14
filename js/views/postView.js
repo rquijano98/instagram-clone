@@ -14,7 +14,8 @@ class PostView extends Views {
   _parentElement = document.querySelector(".post");
 
   _generateMarkup(additionalUsers) {
-    console.log(additionalUsers);
+    console.log(this._data);
+
     const numberOfAdditionalLikes = this._generateNumber(
       // Having the minimum additional likes be the additionalusers length + 1 will: 1) make it so there is at least 1 like per post, and 2) make it so that you won't ever have a situation where there are 0 additional likes AND multiple different profile pictures in the "Liked by" section; situation 1 (1 like per post) is because currently, this code does not properly function if a post does not have at least 1 like; situation 2 exists to prevent a situation that would never happen on actual instagram
       additionalUsers.length + 1,
@@ -36,7 +37,7 @@ class PostView extends Views {
       <ion-icon name="chevron-back-circle" class = "left-arrow arrow"></ion-icon>
       <ion-icon name="chevron-forward-circle" class="right-arrow arrow"></ion-icon>
       <ul class="post-image-list">` +
-      this._data.pictures.picsPost1
+      this._data.pictures.postPics.postPics1
         .map(
           (pic) => `<li><img class="post-img" src="${pic.download_url}" /></li>`
         )
@@ -45,14 +46,14 @@ class PostView extends Views {
     </div>
     <div class="utilities-bar">
       <div class="utility-icons">
-        <ion-icon name="heart-outline"></ion-icon>
+        <ion-icon class="heart-icon" name="heart-outline"></ion-icon>
         <ion-icon name="chatbubble-outline"></ion-icon>
         <ion-icon name="paper-plane-outline"></ion-icon>
       </div>
 
     <div class="dots">` +
-      (this._data.pictures.picsPost1.length > 1
-        ? this._data.pictures.picsPost1
+      (this._data.pictures.postPics.postPics1.length > 1
+        ? this._data.pictures.postPics.postPics1
             .map((_, i) => `<div data-dot="${i}" class="dot dot-${i}"></div>`)
             .join("")
         : "") +
@@ -104,6 +105,19 @@ class PostView extends Views {
       </div>
       <a href="#" class="date-posted">15 hours ago</a>
     </div>
+    <div class="hidden feedback-bar">
+
+      <div class="emoji-container">
+        <span class="coming-soon">Coming soon.. emojis to add to your comments :)</span>
+      </div>
+      <span class="mini-square"></span>
+
+      <ion-icon class="happy-icon" name="happy-outline"></ion-icon>
+      <form>
+        <span class="textarea" role="textbox" contenteditable></span>
+        <button>Post</button>
+      </form>
+    </div> 
     `;
 
     return markup;
@@ -115,8 +129,11 @@ class PostView extends Views {
     this._clickStory();
     this._addComment();
     this._seeMoreHandler();
-    this._getInputWidth();
-    this._expandInputHeight();
+    this._addScrollToTextArea();
+    this._clickEmoji();
+    this._likePost();
+    // this._getInputWidth();
+    // this._expandInputHeight();
   }
 
   _createObservers() {
@@ -237,18 +254,69 @@ class PostView extends Views {
     });
   }
 
+  _likePost() {
+    const heart = this._parentElement.querySelector(".heart-icon");
+
+    const likesEl = this._parentElement.querySelector(".others-who-liked");
+
+    heart.addEventListener("click", function () {
+      if (heart.getAttribute("name") === "heart-outline") {
+        heart.setAttribute("name", "heart");
+
+        // This handles the animation of the heart
+        //////////////////////////////////////////
+        heart.classList.add("clicked", "grown");
+        setTimeout(() => heart.classList.remove("grown"), 100);
+        //////////////////////////////////////////
+
+        // This handles updating the like count
+        //////////////////////////////////////////
+        const likesElContent = likesEl.textContent.split(" ");
+
+        const oldLikeAmount = +likesElContent[0];
+        const newLikeAmount = oldLikeAmount + 1;
+
+        // This will make sure that the word that comes after the number gets pluralized if the number goes from 1 to 2
+        const secondWord =
+          oldLikeAmount === 1 ? likesElContent[1] + "s" : likesElContent[1];
+
+        likesEl.textContent = `${newLikeAmount} ${secondWord}`;
+        //////////////////////////////////////////
+      } else {
+        heart.setAttribute("name", "heart-outline");
+        heart.classList.remove("clicked");
+
+        // This handles updating the like count
+        //////////////////////////////////////////
+        const likesElContent = likesEl.textContent.split(" ");
+
+        const oldLikeAmount = +likesElContent[0];
+        const newLikeAmount = oldLikeAmount - 1;
+
+        const secondWord =
+          oldLikeAmount === 2
+            ? likesElContent[1].replace("s", "")
+            : likesElContent[1];
+
+        likesEl.textContent = `${newLikeAmount} ${secondWord}`;
+
+        //////////////////////////////////////////
+      }
+    });
+  }
+
   _addComment() {
     const commentBar = this._parentElement.querySelector("form");
-    const commentInput = this._parentElement.querySelector("textarea");
+    const commentInput = this._parentElement.querySelector(".textarea");
 
     // THIS FUNCTION IS NOT COMPLETE
     const callbackForPressingPost = function (e) {
       e.preventDefault();
       const newCommentHTML = `
-      <p class="comment"><a href="#" class="user-commenter">${YOUR_PERSONAL_USERNAME}</a> ${commentInput.value}</p>
+      <p class="comment"><a href="#" class="user-commenter">${YOUR_PERSONAL_USERNAME}</a> ${commentInput.textContent}</p>
       `;
 
-      if (commentInput.value) {
+      if (commentInput.textContent) {
         this._parentElement
           .querySelector(".comments-container")
           .insertAdjacentHTML("beforeend", newCommentHTML);
@@ -260,7 +328,7 @@ class PostView extends Views {
 
       this._seeMoreHandler(newComment);
 
-      commentInput.value = "";
+      commentInput.textContent = "";
       commentBar.querySelector("button").classList.remove("active-button");
     };
 
@@ -281,9 +349,9 @@ class PostView extends Views {
     );
 
     commentInput.addEventListener("input", function (e) {
-      if (commentInput.value)
+      if (commentInput.textContent)
         this.parentElement.lastElementChild.classList.add("active-button");
-      if (!commentInput.value)
+      if (!commentInput.textContent)
         this.parentElement.lastElementChild.classList.remove("active-button");
     });
   }
@@ -326,65 +394,31 @@ class PostView extends Views {
       });
   }
 
-  // ALL OF THESE FUNCTIONS ARE TO PROPERLY FORMAT THE TEXTAREA INPUT
-  /////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////
+  _addScrollToTextArea() {
+    const textarea = this._parentElement.querySelector(".textarea");
 
-  _getCssStyle(element, prop) {
-    return window.getComputedStyle(element, null).getPropertyValue(prop);
+    textarea.addEventListener("input", function () {
+      if (textarea)
+        if (textarea.offsetHeight > 80) textarea.classList.add("maxheight");
+        else textarea.classList.remove("maxheight");
+    });
   }
 
-  _getInputFontInformation(el = this._parentElement.querySelector("textarea")) {
-    const fontWeight = this._getCssStyle(el, "font-weight");
-    const fontSize = this._getCssStyle(el, "font-size");
-    const fontFamily = this._getCssStyle(el, "font-family");
+  _clickEmoji() {
+    let emojisHidden = true;
 
-    return `${fontWeight} ${fontSize} ${fontFamily}`;
-  }
+    const happyFace = this._parentElement.querySelector(".happy-icon");
 
-  _getInputWidth(
-    text = this._parentElement.querySelector("textarea").value,
-    font = this._getInputFontInformation()
-  ) {
-    const canvas =
-      this._getInputWidth.canvas ||
-      (this._getInputWidth.canvas = document.createElement("canvas"));
-    const context = canvas.getContext("2d");
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-
-  _expandInputHeight() {
-    const input = this._parentElement.querySelector("textarea");
-    const inputEndOfLine = 530;
-
-    const callback = function (e) {
-      console.log(this._getInputWidth());
-      if (!input) input.setAttribute("rows", 2);
-
-      if (input.getAttribute("rows") !== 5) input.style.overflow = "hidden";
-
-      if (this._getInputWidth() < inputEndOfLine) input.setAttribute("rows", 2);
-      else if (
-        this._getInputWidth() > inputEndOfLine &&
-        this._getInputWidth() < inputEndOfLine * 2
-      )
-        input.setAttribute("rows", 3);
-      else if (
-        this._getInputWidth() > inputEndOfLine * 2 &&
-        this._getInputWidth() < inputEndOfLine * 3
-      )
-        input.setAttribute("rows", 4);
-      else {
-        input.setAttribute("rows", 5);
-        input.style.overflow = "auto";
+    window.addEventListener("click", function (e) {
+      if (emojisHidden && e.target === happyFace) {
+        happyFace.parentElement.classList.remove("hidden");
+        emojisHidden = false;
+      } else {
+        happyFace.parentElement.classList.add("hidden");
+        emojisHidden = true;
       }
-    };
-    input.addEventListener("keydown", callback.bind(this));
+    });
   }
-  /////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////
 
   _generateNumber(min, max) {
     const randomNumber = Math.round(Math.random() * (max - min) + min);

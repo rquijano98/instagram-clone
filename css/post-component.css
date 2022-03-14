@@ -97,6 +97,32 @@
   gap: 1.4rem;
 }
 
+/* This handles the like animation */
+/***********************************/
+/***********************************/
+.heart-icon {
+  transform: scale(1);
+  transition: transform 0.1s;
+  color: black;
+}
+
+.clicked.grown.heart-icon {
+  transform: scale(1.2);
+  transition: transform 0.1s;
+  color: red;
+}
+
+.clicked.heart-icon:hover {
+  color: red;
+}
+
+.clicked.heart-icon {
+  transform: scale(1);
+  color: red;
+}
+/***********************************/
+/***********************************/
+
 .dots {
   display: flex;
   gap: 0.4rem;
@@ -238,16 +264,21 @@
 }
 
 .feedback-bar {
-  padding: 1rem 1.2rem 1rem 1.4rem;
+  padding: 0.8rem 1.2rem 0.8rem 1.4rem;
   border-top: #eee 1px solid;
   display: flex;
   gap: 2.4rem;
   align-items: center;
+  position: relative;
 }
 
 .feedback-bar ion-icon {
   font-size: 2.8rem;
   color: #000;
+}
+
+.feedback-bar ion-icon:hover {
+  cursor: pointer;
 }
 
 .feedback-bar form {
@@ -257,7 +288,7 @@
   align-items: center;
 }
 
-.feedback-bar textarea {
+/* .feedback-bar textarea {
   border: none;
   padding-top: 1rem;
   flex: 1 0;
@@ -270,8 +301,35 @@
 
 .feedback-bar textarea:focus {
   outline: none;
+} */
+
+.feedback-bar .textarea {
+  display: block;
+  flex: 1;
+  max-width: 54.1rem;
+  min-height: 4rem;
+  /* line-height: 2rem; */
+  overflow: hidden;
+  font-size: inherit;
+  font-family: inherit;
+  color: black;
+  padding-top: 1.2rem;
+  cursor: text;
 }
 
+.feedback-bar .textarea.maxheight {
+  max-height: 8.2rem;
+  overflow-y: scroll;
+}
+
+.textarea[contenteditable]:empty::before {
+  content: "Add a comment...";
+  color: #888;
+}
+
+.feedback-bar .textarea:focus {
+  outline: none;
+}
 .feedback-bar button {
   cursor: default;
   background-color: transparent;
@@ -293,9 +351,45 @@
   color: #74c0fc;
 }
 
+.emoji-container {
+  z-index: 99999;
+  position: absolute;
+  top: -282%;
+  transform: translateX(-3%);
+  background-color: #fff;
+  box-shadow: 0 2px 2px 1px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  height: 16rem;
+  width: 32.5rem;
+  color: #666;
+  font-size: 2.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+}
+
+.mini-square {
+  z-index: 99999;
+  content: "";
+  border-left: 1rem solid #fff;
+  border-bottom: 1rem solid #fff;
+  border-right: 1rem solid #fff;
+  border-top: 1rem solid #fff;
+  position: absolute;
+  transform: rotate(315deg);
+  top: -16.25%;
+  left: 2.7%;
+  box-shadow: -2px 2px 2px 1px rgba(0, 0, 0, 0.05);
+}
+
+.hidden .emoji-container,
+.hidden .mini-square {
+  display: none;
+}
+
 /* Things to do tomorrow
-1) Add the fake emoji window on the smiley face
-3) Make it so the add a comment textarea grows into multiple lines when the text reaches the end 
 5) Make it so clicking the heart fills it with red and adds 1 to number of likes
 6) Get the llorem ipsum import to work
  */

@@ -5,6 +5,6 @@ export class Views {
     this._data = data;
     const markup = this._generateMarkup(additionalData);
 
-    this._parentElement.insertAdjacentHTML("afterbegin", markup);
+    this._parentElement.insertAdjacentHTML("beforeend", markup);
   }
 }
