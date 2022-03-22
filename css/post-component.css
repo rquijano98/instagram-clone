@@ -1,7 +1,8 @@
 .post {
   border: 1px solid #ddd;
   width: 100%;
-  overflow: none;
+  background-color: #fff;
+  /* overflow: none; */
 }
 
 .title-bar {
@@ -25,6 +26,7 @@
   height: 3.6rem;
   width: 3.6rem;
   border-radius: 50%;
+  z-index: 99;
 }
 
 .title-bar .profile-picture-container::after {
@@ -44,7 +46,9 @@
   background: none;
 }
 
-.post-username {
+.post-username:link,
+.post-username:visited {
+  text-decoration: none;
   color: #000;
   font-weight: 700;
   cursor: pointer;
@@ -202,8 +206,12 @@
   z-index: 9999;
 }
 
+.images-portion img:nth-child(2) {
+  z-index: 9998;
+}
+
 .images-portion img:last-child {
-  z-index: -9999;
+  z-index: 9997;
 }
 
 .comments-container {
@@ -215,6 +223,8 @@
 }
 
 /* This section handles the "See more" button for every comment */
+/* ************************************************************* */
+/* ************************************************************* */
 
 .comment {
   /* This is to ensure that a comment cannot ever extend beyond the comment container */
@@ -239,9 +249,15 @@
 .more-clicked .more {
   display: none;
 }
+/* ************************************************************* */
+/* ************************************************************* */
 
 .view-remaining-comments.hidden {
   display: none;
+}
+
+.date-posted {
+  display: inline-block;
 }
 
 .date-posted:link,
@@ -287,21 +303,6 @@
   justify-content: space-between;
   align-items: center;
 }
-
-/* .feedback-bar textarea {
-  border: none;
-  padding-top: 1rem;
-  flex: 1 0;
-  font-size: 1.2rem;
-  line-height: 1;
-  font-family: inherit;
-  overflow: hidden;
-  resize: none;
-}
-
-.feedback-bar textarea:focus {
-  outline: none;
-} */
 
 .feedback-bar .textarea {
   display: block;

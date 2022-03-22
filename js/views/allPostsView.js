@@ -1,33 +1,46 @@
-import { Views } from "./Views.js";
+import { TIME_AMPLIFIER } from "../config.js";
 
-class allPostsView extends Views {
+class allPostsView {
   _parentElement = document.querySelector("main");
 
   uniqueRender(data) {
     this._data = data;
     this._generatePosts();
-    this._fillPosts();
   }
 
   _generatePosts() {
-    const postPictureArr = Object.entries(this._data.pictures.postPics);
+    const postPictureArr = Object.entries(this._data);
 
-    console.log(postPictureArr);
+    postPictureArr.forEach((post, i) => {
+      const markup = `
+          <section data-postnum = "${i}" class="post post-${i}"></section>
+          `;
 
-    const markup = postPictureArr
-      .map(
-        (post, i) =>
-          `
-    <section class="post post-${i}">yo</section>
-    `
-      )
-      .join("");
-
-    this._parentElement.insertAdjacentHTML("beforeend", markup);
+      // Insert the first post before the "suggestions box"
+      if (i === 0)
+        this._parentElement.firstElementChild.insertAdjacentHTML(
+          "afterend",
+          markup
+        );
+      // Insert all posts besides the first one after the "suggestions box"
+      else this._parentElement.insertAdjacentHTML("beforeend", markup);
+    });
   }
 
-  _fillPosts() {
-    const postPictureArr = Object.entries(this._data.pictures.postPics);
+  createPostObjects(someClass) {
+    const postPictureArr = Array.from(
+      this._parentElement.querySelectorAll(".post")
+    );
+    const arrayOfClasses = postPictureArr.map((post) => new someClass(post));
+    return arrayOfClasses;
+  }
+
+  updatePostTimes(timeArr) {
+    const allPosts = Array.from(this._parentElement.querySelectorAll(".post"));
+    timeArr.forEach(
+      (time, i) =>
+        (allPosts[i].querySelector(".date-posted").textContent = time)
+    );
   }
 }
 

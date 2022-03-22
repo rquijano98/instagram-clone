@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="static/favicon-32x32.png" />
+
     <title>Mock Instagram Version 2</title>
 
     <link href="css/general.css" rel="stylesheet" />
@@ -12,6 +15,8 @@
     <link href="css/suggestion-component.css" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/post-component.css" rel="stylesheet" />
+    <link href="css/aside-component.css" rel="stylesheet" />
+    <link href="css/queries.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,10 +26,11 @@
 
     <script defer type="module" src="js/controller.js"></script>
 
-    <!-- <script
+    <script
+    defer
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
       type="module"
-    ></script> -->
+    ></script>
   </head>
   <body>
 
@@ -32,12 +38,14 @@
       
           <header class="header-bar container">
             <div class="first-half">
-              <img src="images/written-instagram-logo.png" class="written-logo" />
+              <img src="static/written-instagram-logo.png" class="written-logo" />
             </div>
           <div class="second-half">
-            <input class="search-bar" type="text" placeholder="Search" />
-            <ion-icon name="search-outline" class="search-icon"></ion-icon>
-            <ion-icon name="close-circle" class="close-icon hidden"></ion-icon>
+            <div class="search-bar-container">
+              <input class="search-bar" type="text" placeholder="Search" />
+              <ion-icon name="search-outline" class="search-icon"></ion-icon>
+              <ion-icon name="close-circle" class="close-icon hidden"></ion-icon>
+            </div>
             <nav class="nav-icons">
               <button class="icon-container">
                 <ion-icon name="home-outline"></ion-icon>
@@ -56,11 +64,40 @@
               <button class="icon-container">
                 <ion-icon name="person-outline"></ion-icon>
               </button>
+
+              <!-- **************************************************************************************************** -->
+              <!-- The aside component (the component of instagram off to the very right) had to be placed within the nav icon list of the header because it is positioned absolutely relative to this nav icon list -->
+              <aside>
+                <div class="user-container your-container">
+                  <img src="static/profile-picture.jpg" class="profile-picture personal-profile-picture"/>
+                  <div class="personal-text-container user-text-container">
+                    <a href="#" class="personal-username aside-username"></a>
+                    <span class="personal-name"></span>
+                  </div>
+                  <a href="#" class="switch-link">Switch</a>
+                </div>
+                <!-- <div class="other-users-suggestions">
+                  <div class="suggestion-title">
+                    <p class="suggestion-title-text">Suggestions For You</p>
+                    <a href="#" class="suggestion-title-link">See All</a>
+                  </div>
+                  <div class="user-container">
+                    <img src ="https://randomuser.me/api/portraits/thumb/women/63.jpg" class="profile-picture suggestion-profile-picture"/>
+                    <div class="user-text-container">
+                      <a href="#" class="aside-username">carly_574</a>
+                      <span class="aside-name">Carly Smith</span>
+                    </div>
+                    <a href="#" class="follow-link">Follow</a>
+                  </div>
+                </div> -->
+              </aside>
+
+              <!-- **************************************************************************************************** -->
+
             </nav>
           </div>
         </header>
-      </div>  
-
+      </div>
       <div class="container">
 
         <main>
@@ -85,7 +122,7 @@
           </section>
 
 
-          <section class="post post-1">
+          <!-- <section class="post post-1"> -->
             <!-- <header class="title-bar">
               <span class="profile-picture-container"><img src = "https://randomuser.me/api/portraits/thumb/women/63.jpg"/></span>
               <span class="post-username">username</span>
@@ -138,7 +175,7 @@
                 <button>Post</button>
               </form>
             </div>  -->
-          </section>
+          <!-- </section> -->
 
 
           <section class="suggestion-container">
@@ -169,11 +206,8 @@
             </ul>
 
           </section>
+
         </main>
       </div>
-      <script
-      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-      type="module"
-    ></script>
   </body>
 </html>

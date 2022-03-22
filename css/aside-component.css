@@ -1,0 +1,115 @@
+aside {
+  position: absolute;
+
+  width: 32.5rem;
+  top: 320%;
+  left: -15%;
+}
+.your-container {
+  padding-bottom: 2.8rem;
+}
+
+.user-container {
+  display: flex;
+  gap: 1.6rem;
+  align-items: center;
+}
+
+.profile-picture {
+  border-radius: 50%;
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+.personal-profile-picture {
+  height: 5.6rem;
+  width: 5.6rem;
+}
+
+.profile-picture:hover {
+  cursor: pointer;
+}
+
+.aside-username:link,
+.aside-username:visited {
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+.aside-username:hover {
+  text-decoration: underline;
+}
+
+.personal-username:hover {
+  text-decoration: none;
+}
+
+.aside-username:active {
+  color: #888;
+}
+
+.aside-name {
+  font-size: 1.2rem;
+}
+
+.user-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1.4rem;
+}
+
+.switch-link:link,
+.switch-link:visited,
+.follow-btn {
+  margin-left: auto;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4dabf7;
+}
+
+.follow-btn:hover {
+  cursor: pointer;
+}
+
+.switch-link:active,
+.follow-btn:active {
+  color: #74c0fc;
+}
+
+.clicked.follow-btn {
+  color: #222;
+}
+
+.clicked.follow-btn:active {
+  color: #666;
+}
+
+.other-users-suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+}
+
+.suggestion-title {
+  color: #999;
+  font-weight: 700;
+  font-size: 1.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.suggestion-title-link:link,
+.suggestion-title-link:visited {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #000;
+}
+
+.suggestion-title-link:active {
+  color: #555;
+}

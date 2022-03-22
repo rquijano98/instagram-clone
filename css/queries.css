@@ -1,0 +1,100 @@
+@media (max-width: 66.5em) {
+  aside {
+    display: none;
+  }
+
+  main {
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .container {
+    max-width: 105rem;
+  }
+}
+
+@media (max-width: 45.5em) {
+  .feedback-bar {
+    display: none;
+  }
+
+  .date-posted {
+    padding-top: 0.6rem;
+  }
+}
+
+@media (max-width: 45.1em) {
+  .search-bar-container {
+    width: 100%;
+  }
+
+  .header-bar {
+    grid-template-columns: 12rem 1fr;
+  }
+}
+
+@media (max-width: 675px) {
+  main {
+    grid-template-columns: 100vw;
+    /* padding-right: 16px; */
+  }
+
+  /* Have to add extra padding to these components of each post  */
+  /* *********************************************************** */
+  /* *********************************************************** */
+  .title-bar {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  .utilities-bar {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  .comments-and-likes {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  /* *********************************************************** */
+  /* *********************************************************** */
+
+  .img-container {
+    height: 100vw;
+    width: 100vw;
+  }
+
+  .img-container li img {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .right-arrow {
+    right: 3.5%;
+  }
+
+  .left-arrow {
+    left: 3.5%;
+  }
+
+  /* .right-arrow {
+    right: 3.9%;
+  } */
+
+  .search-bar-container {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .stories-container {
+    margin-top: 6rem;
+    border-top: none;
+  }
+
+  .post {
+    border: none;
+  }
+}
+
+@media (max-width: 41.1em) {
+}

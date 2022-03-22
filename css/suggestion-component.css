@@ -4,6 +4,7 @@
   border: 1px solid #ddd;
   position: relative;
   overflow-y: hidden;
+  background-color: #fff;
 }
 
 .suggestion-card-list {
@@ -58,6 +59,7 @@
   justify-content: center;
   padding: 1.6rem 0 1.6rem 0;
   position: relative;
+  cursor: pointer;
 }
 
 .transition.suggestion-card {

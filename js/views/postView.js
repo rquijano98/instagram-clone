@@ -8,14 +8,24 @@ import {
   MAXIMUM_ADDITIONAL_LIKES_PER_POST,
 } from "../config.js";
 
-// import { loremIpsum } from "lorem-ipsum";
+import { LoremIpsum, loremIpsum } from "lorem-ipsum";
 
-class PostView extends Views {
-  _parentElement = document.querySelector(".post");
+// IMPORTANT NOTE: This entire class is being exported rather than a default export of one instance of this class because the controller and the default export ffrom allPostsView.js will work together to create multiple different instances of this class directly in the controller
+
+export class PostView extends Views {
+  _parentElement;
+  _postNumber;
+
+  // Using the lorem ipsum npm package to generate a description for each post
+  _lorem = new LoremIpsum();
+
+  constructor(post) {
+    super();
+    this._parentElement = post;
+    this._postNumber = post.dataset.postnum;
+  }
 
   _generateMarkup(additionalUsers) {
-    console.log(this._data);
-
     const numberOfAdditionalLikes = this._generateNumber(
       // Having the minimum additional likes be the additionalusers length + 1 will: 1) make it so there is at least 1 like per post, and 2) make it so that you won't ever have a situation where there are 0 additional likes AND multiple different profile pictures in the "Liked by" section; situation 1 (1 like per post) is because currently, this code does not properly function if a post does not have at least 1 like; situation 2 exists to prevent a situation that would never happen on actual instagram
       additionalUsers.length + 1,
@@ -25,19 +35,26 @@ class PostView extends Views {
       MINIMUM_ADDITIONAL_COMMENTS_PER_POST,
       MAXIMUM_ADDITIONAL_COMMENTS_PER_POST
     );
-
     const markup =
       `
     <header class="title-bar">
-      <span data-id="${this._data.users.postUsers[0].login.uuid}" class="profile-picture-container user-${this._data.users.postUsers[0].login.uuid}"><img src = "${this._data.users.postUsers[0].picture.thumbnail}"/></span>
-      <span class="post-username">${this._data.users.postUsers[0].login.username}</span>
+      <span data-id="${
+        this._data.users.postUsers[this._postNumber].login.uuid
+      }" class="profile-picture-container user-${
+        this._data.users.postUsers[this._postNumber].login.uuid
+      }"><img src = "${
+        this._data.users.postUsers[this._postNumber].picture.thumbnail
+      }"/></span>
+      <a href="#" class="post-username">${
+        this._data.users.postUsers[this._postNumber].login.username
+      }</a>
       <ion-icon name="ellipsis-horizontal" class="dots-icon"></ion-icon>
     </header>
     <div class="img-container">
       <ion-icon name="chevron-back-circle" class = "left-arrow arrow"></ion-icon>
       <ion-icon name="chevron-forward-circle" class="right-arrow arrow"></ion-icon>
       <ul class="post-image-list">` +
-      this._data.pictures.postPics.postPics1
+      this._data.pictures.postPics[`postPics${this._postNumber}`]
         .map(
           (pic) => `<li><img class="post-img" src="${pic.download_url}" /></li>`
         )
@@ -52,8 +69,8 @@ class PostView extends Views {
       </div>
 
     <div class="dots">` +
-      (this._data.pictures.postPics.postPics1.length > 1
-        ? this._data.pictures.postPics.postPics1
+      (this._data.pictures.postPics[`postPics${this._postNumber}`].length > 1
+        ? this._data.pictures.postPics[`postPics${this._postNumber}`]
             .map((_, i) => `<div data-dot="${i}" class="dot dot-${i}"></div>`)
             .join("")
         : "") +
@@ -95,15 +112,15 @@ class PostView extends Views {
 
       <div class="comments-container">
         <p class="comment"><a href="#" class="user-commenter">${
-          this._data.users.postUsers[0].login.username
-        }</a> Lorem ipsum </p>
+          this._data.users.postUsers[this._postNumber].login.username
+        }</a> ${this._lorem.generateSentences(this._generateNumber(1, 5))} </p>
         <a href="#" class="view-remaining-comments ${
           numberOfComments === 0 ? "hidden" : ""
         }">View ${
         numberOfComments > 1 ? `all ${numberOfComments} comments` : "1 comment"
       }</a>
       </div>
-      <a href="#" class="date-posted">15 hours ago</a>
+      <a href="#" class="date-posted"></a>
     </div>
     <div class="hidden feedback-bar">
 
@@ -132,8 +149,12 @@ class PostView extends Views {
     this._addScrollToTextArea();
     this._clickEmoji();
     this._likePost();
-    // this._getInputWidth();
-    // this._expandInputHeight();
+    this._generatePostTimestamp();
+    this._handleImageScroll();
+
+    // Makes it so clicking on the small user icons next to the "Liked by" section redirects you to the top of the page
+    this._addLink(this._parentElement.querySelector(".images-portion"));
+    // this._addLink();
   }
 
   _createObservers() {
@@ -158,8 +179,8 @@ class PostView extends Views {
 
     const observerOptions = {
       root: this._parentElement,
-      threshold: 0.97,
-      // rootMargin: "1px",
+      threshold: 0.94,
+      // rootMargin: "30px",
     };
 
     const storiesObserver = new IntersectionObserver(
@@ -192,6 +213,11 @@ class PostView extends Views {
           this._parentElement
             .querySelector(`.dot-${imageNumber}`)
             ?.classList.add("active");
+
+          // Removes clicked class from all arrows once the new image is in the view of the post
+          this._parentElement
+            .querySelectorAll(".arrow")
+            .forEach((arrow) => arrow.classList.remove("clicked"));
         }
       });
 
@@ -218,12 +244,13 @@ class PostView extends Views {
     const imageWindow = this._parentElement.querySelector(".post-image-list");
 
     const callback = function (e) {
-      console.log(e);
+      e.target.classList.add("clicked");
+
       imageWindow.scrollBy({
         left:
           e.target === this._parentElement.querySelector(".left-arrow")
-            ? -imageWindow.offsetWidth
-            : imageWindow.offsetWidth,
+            ? -imageWindow.firstElementChild.offsetWidth
+            : imageWindow.firstElementChild.offsetWidth,
         behavior: "smooth",
       });
     };
@@ -236,14 +263,50 @@ class PostView extends Views {
       .addEventListener("click", callback.bind(this));
   }
 
+  _handleImageScroll() {
+    const imageWindow = this._parentElement.querySelector(".post-image-list");
+
+    // The entire block of code from here to the bottom of _handleImageScroll makes it so that if you scroll, an event will be fired; if another scroll does not happen within 180 ms, then the callback of the setTimeout actually gets executed (it automatically scrolls to whichever picture is most in view); another scroll within 180ms clears the timeOut, however, so the timer will get reset
+    let timer = null;
+
+    const callback = function () {
+      const activeDot = this._parentElement.querySelector(".active");
+      const curPicIndex = activeDot.dataset.dot;
+      const curPic = Array.from(imageWindow.children)[curPicIndex];
+
+      if (timer !== null) {
+        clearTimeout(timer);
+      }
+
+      // This first if statement is to prevent the clicking of arrows event and the scrolling event from interfering with each other; basically, clicking an arrow adds a clicked class which gets removed after a little bit of time; if the clicked class is active, then this part of the callback of the scroll event will not be executed
+      if (!this._parentElement.querySelector(".clicked")) {
+        timer = setTimeout(() => {
+          const xCoordOfCurPic = curPic.getBoundingClientRect().x;
+          const xCoordOfPicContainer = imageWindow.getBoundingClientRect().x;
+
+          const xScroll = xCoordOfCurPic - xCoordOfPicContainer;
+
+          // if ()
+          imageWindow.scrollBy({
+            // If the xCoord of the picture container is 1 (this only happens when the viewport is so shrunk that it is in direct contact with the images in the picture container), then the scroll to must scroll by 1 extra pixel; this is sort of a brute force solution to a problem that was happening where there would be "underscrolling" by just 1 pixel when the viewport was shrunken to the point that the images touch its edge
+            left: xScroll,
+            behavior: "smooth",
+          });
+        }, 180);
+      }
+    };
+    imageWindow.addEventListener("scroll", callback.bind(this), false);
+  }
+
   _clickStory() {
-    this._parentElement.addEventListener("click", function (e) {
+    const callback = function (e) {
       // Set the clicked element to storyEl
       const clickedEl = e.target;
       const posterEl = clickedEl.closest(".profile-picture-container");
       if (!posterEl) return;
 
-      console.log("hello");
+      // This line of code will make it so taht after the colored border is removed, clicking on the icon again will redirect you to the top of the page
+      this._addLink(posterEl);
 
       // This chunk of code will remove the colorful border from EVERY icon of ONE particular user after that icon is clicked in any location
       const clickedID = posterEl.dataset.id;
@@ -251,7 +314,9 @@ class PostView extends Views {
       Array.from(document.querySelectorAll(`.user-${clickedID}`)).forEach(
         (el) => el.classList.add("clicked")
       );
-    });
+    };
+
+    this._parentElement.addEventListener("click", callback.bind(this));
   }
 
   _likePost() {
@@ -424,6 +489,9 @@ class PostView extends Views {
     const randomNumber = Math.round(Math.random() * (max - min) + min);
     return randomNumber;
   }
-}
 
-export default new PostView();
+  _generatePostTimestamp() {
+    const time = new Date().getTime();
+    this._parentElement.setAttribute("data-time", time);
+  }
+}

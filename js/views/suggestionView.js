@@ -1,6 +1,7 @@
 import { Views } from "./Views.js";
 
 class SuggestionView extends Views {
+  // These names are somewhat confusing; I do need to go through and rename these variables
   _parentElement = document.querySelector(".suggestion-card-list");
   _grandparentElement = document.querySelector(".suggestion-container");
 
@@ -33,8 +34,19 @@ class SuggestionView extends Views {
     this._createObserver();
     this._clickArrows();
 
-    // Makes it so there are is no scrolling in place if you start with 3 cards or less
-    if (this._data.length <= 3) this._removeScrolling();
+    // Makes it so there is no scrolling in place if you start with 3 cards or less at width above 658px, and no scrolling if you start with 2 cards or less at a width below 658px
+    if (this._data.length <= 3 && this._grandparentElement.offsetWidth >= 658)
+      this._removeScrolling();
+    if (this._data.length <= 2 && this._grandparentElement.offsetWidth < 658)
+      this._removeScrolling();
+
+    // Makes it so the suggestion container does not even show up if there are no suggested users to go in it
+    if (this._data.length === 0)
+      this._grandparentElement.style.display = "none";
+
+    Array.from(this._parentElement.children).forEach((card) =>
+      this._addLink(card)
+    );
   }
 
   _closeCard() {
@@ -80,7 +92,11 @@ class SuggestionView extends Views {
         return acc;
       }, allCards.length - 2);
 
-      if (remainingCards <= 3) this._removeScrolling();
+      if (remainingCards <= 3 && this._grandparentElement.offsetWidth >= 658)
+        this._removeScrolling();
+
+      if (remainingCards <= 2 && this._grandparentElement.offsetWidth < 658)
+        this._removeScrolling();
     };
 
     this._parentElement.addEventListener("click", callback.bind(this));

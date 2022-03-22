@@ -7,11 +7,12 @@
   border-bottom: 1px solid #ddd;
   display: flex;
   justify-content: center;
-  z-index: 9999;
+  z-index: 999999;
 }
 
 .header-bar {
   display: grid;
+  width: 105rem;
   grid-template-columns: 3fr 5fr;
   justify-items: center;
   align-items: center;
@@ -37,16 +38,26 @@
   width: 100%;
 }
 
+.search-bar-container {
+  width: 26.8rem;
+  justify-self: start;
+  align-self: stretch;
+  /* padding-left: 4.8rem; */
+  position: relative;
+  border-radius: 6px;
+}
+
 .search-bar {
   font-size: 1.6rem;
   font-family: inherit;
-  width: 26.8rem;
+  width: 100%;
+  height: 100%;
   background-color: rgba(238, 238, 238, 0.6);
   border: none;
   border-radius: 6px;
-  justify-self: start;
-  align-self: stretch;
-  padding-left: 4.8rem;
+  /* justify-self: start;
+  align-self: stretch; */
+  padding-left: 4rem;
   color: #888;
 }
 
@@ -67,11 +78,11 @@
   font-size: 1.8rem;
   position: absolute;
   top: 50%;
-  transform: translateY(-46%);
 }
 
 .search-icon {
   left: 1rem;
+  transform: translateY(-46%);
 }
 
 .hidden.search-icon {
@@ -80,7 +91,8 @@
 
 .close-icon {
   color: #ccc;
-  left: 23.8rem;
+  right: 1rem;
+  transform: translateY(-50%);
 }
 
 .close-icon:hover {
@@ -94,7 +106,8 @@
 .written-logo {
   height: 3.2rem;
   width: 12rem;
-  /* padding-left: 1.6rem; */
+  /* This padding right exists so the search bar is not directly touching the logo when the viewport is being shrunk */
+  padding-right: 2rem;
 }
 
 button:hover,
@@ -107,6 +120,11 @@ button:active {
   align-items: center;
   gap: 2rem;
   justify-self: end;
+  /* Padding left is so that when shrinking the port view, the left-most icon is not directly touching the search bar */
+  padding-left: 2rem;
+
+  /* This relative positioning is for the aside section (the content off to the right side) */
+  position: relative;
 }
 
 .nav-icons button {

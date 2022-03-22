@@ -28,7 +28,13 @@ class StoriesView extends Views {
     return markup;
   }
 
-  createObserver() {
+  addMarkupJS() {
+    this._createObserver();
+    this._clickStory();
+    this._clickArrows();
+  }
+
+  _createObserver() {
     const observerFunction = function (entries) {
       // if (entries[0].isIntersecting) return;
       if (entries[0].target === this._parentElement.firstElementChild)
@@ -56,7 +62,7 @@ class StoriesView extends Views {
     storiesObserver.observe(this._parentElement.lastElementChild);
   }
 
-  clickStory() {
+  _clickStory() {
     this._parentElement.addEventListener("click", function (e) {
       // Set the clicked element to storyEl
       const clickedEl = e.target;
@@ -72,7 +78,7 @@ class StoriesView extends Views {
     });
   }
 
-  clickArrows() {
+  _clickArrows() {
     const callback = function (e) {
       console.log(e);
       this._parentElement.scrollBy({
