@@ -8,6 +8,7 @@ This is in no way intended to be a replacement for the actual Instagram applicat
 
 
 Highlights:
+
 -> HEADER (component that contains Instagram written logo, search bar, and navigation icons)
 
 1. The header bar is sticky; it shows at the top of the viewport no matter how much you scroll down in the viewport.
