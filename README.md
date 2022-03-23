@@ -86,13 +86,13 @@ This application uses HTML, CSS, JavaScript, and two APIs (Random User Generator
 
 #### Getting Started
 
-1. Download the "instagram-clone" off of GitHub.
-2. Open a terminal and navigate to whatever directory the instagram-clone folder was downloaded into.
-3. From this directory, type "npm i" and hit enter.
-4. From this directory, type "npm start" and hit enter.
-5. Open http://localhost:1234.
+1. Download or clone the "instagram-clone" repository from GitHub.
+2. Open a terminal and navigate to newly created directory, which should just be called "instagram-clone."
+3. From this directory, type "npm i" and hit enter in order to install the necessary dependencies for running the application.
+4. After dependences have been installed, type "npm start" and hit enter in order to run the application.
+5. Open http://localhost:1234 where the application is running.
 
-   <ins>**\*Known issue:**</ins> Parcel is used to bundle this application; the bundle is present in the newly created dist folder. There is a known issue with Parcel where sometimes, it will remove the attribute type = "module" from a script tag.
+   <ins>**\*Known issue (icons not loading):**</ins> Parcel is used to bundle this application; the bundle is present in the newly created dist folder. There is a known issue with Parcel where sometimes, it will remove the attribute type = "module" from a script tag.
    If, when you opened the application after npm start, you DO NOT see 6 icons to the right of the search bar in the header, this issue has likely occured. To fix it and make it so that the icons are visible, navigate to the dist folder and open index.html. Right before the closing `</head>` tag, there should be the following script tag:
    `<script defer=" " src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>`
 
