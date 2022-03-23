@@ -35,7 +35,7 @@ This application uses HTML, CSS, JavaScript, and two APIs (Random User Generator
 
 3. If you click follow next to one of the users, the button turns into a "requested" button, and if you clicked the requested button, it turns back into a follow button; this imitates the same behavior this button has on Instagram.
 
-4. <ins>**Responsiveness:**</ins> The aside disappears when the viewport is shrunk below 1065px.
+4. <ins>**Responsive Highlight:**</ins> The aside disappears when the viewport is shrunk below 1065px.
 
 #### Posts (main component of this application; these are the large boxes underneath the story bar that contain pictures and comments)
 
