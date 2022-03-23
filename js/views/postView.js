@@ -346,10 +346,10 @@ export class PostView extends Views {
           oldLikeAmount === 1 ? likesElContent[1] + "s" : likesElContent[1];
 
         likesEl.textContent = `${newLikeAmount} ${secondWord}`;
-        //////////////////////////////////////////
       } else {
         heart.setAttribute("name", "heart-outline");
         heart.classList.remove("clicked");
+        //////////////////////////////////////////
 
         // This handles updating the like count
         //////////////////////////////////////////

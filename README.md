@@ -1,20 +1,20 @@
-Title of Project: Instagram Clone
+## Instagram Clone
 
-Description:
-This application uses HTML, CSS, JavaScript, and two APIs (Random User Generator <https://randomuser.me/> and Lorem Picsum <https://picsum.photos/> ) to generate a unique fake Instagram feed every time the page is reloaded. The application was created as a way to practice implementation of CSS and JavaScript fundamentals and techniques. The highlights of this application are listed below. NOTE: On the actual Instagram website, several of the components that I have recreated on this clone can be clicked to bring the user to another page; because I only created one page, any time the user of this clone application clicks on one of those components that usually leads to another page on normal Insagram, they simply will be brought to the top of the page.
+### Description:
 
-Disclaimer: 
-This is in no way intended to be a replacement for the actual Instagram application; this clone application was created simply to practice CSS and JavaScript fundamentals by trying to recreate the layout of Instagram
+This application uses HTML, CSS, JavaScript, and two APIs (Random User Generator <https://randomuser.me/> and Lorem Picsum <https://picsum.photos/> ) to generate a unique fake Instagram feed every time the page is reloaded. The application was created as a way to practice implementation of CSS and JavaScript fundamentals and techniques. The highlights of this application are listed below. NOTE: On the actual Instagram website, several of the components that I have recreated on this clone can be clicked to bring the user to another page; because I only created one page, any time the user of this clone application clicks on one of those components that usually leads to another page on normal Instagram, they simply will be brought to the top of the page.
 
+**_Disclaimer_**: _This is in no way intended to be a replacement for the actual Instagram application; this clone application was created simply to practice CSS and JavaScript fundamentals by trying to recreate the layout of Instagram simply by looking at an Instagram feed._
 
-Highlights:
--> HEADER (component that contains Instagram written logo, search bar, and navigation icons)
+### Highlights:
+
+#### Header (component that contains Instagram written logo, search bar, and navigation icons)
 
 1. The header bar is sticky; it shows at the top of the viewport no matter how much you scroll down in the viewport.
 
-#Responsiveness: As user shrinks the viewport width down to 722px, only the white spice that is in the header bar gets reduced (logo, search bar, and navigtion icons remain the same size, just like on actual Instagram) between 722px and 675px (when there is no more white space to be removed), the search bar shrinks smoothly; smaller than 675px, the search bar disappears.
+2. <ins>**Responsive Highlight:**</ins> As user shrinks the viewport width down to 722px, only the white spice that is in the header bar gets reduced (logo, search bar, and navigation icons remain the same size, just like on actual Instagram). Between 722px and 675px (when there is no more white space to be removed), the search bar shrinks smoothly; smaller than 675px, the search bar disappears.
 
--> STORY BAR (NOTE: This is NOT the header, as the header is the section that contains the search bar; the Story Bar is the horizontal rectangle at the top of the feed that contains several different users whose pictures are outlined in orange/red)
+#### Story Bar (rectangle at the top of the feed that contains several different users whose pictures are outlined in orange/red)
 
 1. The users in the story bar were pulled from model.js, where an object of random users created by the Random User GeneratorAPI exists.
 
@@ -25,9 +25,9 @@ Highlights:
 
 4. When there are only few stories to display(the amount of stories in the story bar is affected by settings in the config.js file, which will be discussed later in this README), the arrows disappear and you cannot scroll with swiping.
 
-#Responsiveness: Size of the story bar changes with the size of the viewport once you decrease the viewport width to below 675px.
+5. <ins>**Responsive Hightlight:**</ins> Size of the story bar changes with the size of the viewport once you decrease the viewport width to below 675px.
 
--> ASIDE (component that is off to the right if the viewport is 1065px)
+#### Aside (component that is off to the right if the viewport is >1065px)
 
 1. The users in the aside were pulled from model.js, where an object of random users created by the Random User Generator exists.
 
@@ -35,9 +35,9 @@ Highlights:
 
 3. If you click follow next to one of the users, the button turns into a "requested" button, and if you clicked the requested button, it turns back into a follow button; this imitates the same behavior this button has on Instagram.
 
-#Responsiveness: The aside disappears when the viewport is shrunk below 1065px.
+4. <ins>**Responsiveness:**</ins> The aside disappears when the viewport is shrunk below 1065px.
 
--> POSTS (The main component of this application; these are the large boxes underneath the story bar that contain pictures and comments. The number of posts is affected by the settings in the config.js file, which will be discussed later in this README)
+#### Posts (main component of this application; these are the large boxes underneath the story bar that contain pictures and comments)
 
 1. Every post has one or more pictures (the amount of pictures in a particular post will be explained more when the config.js file is discussed later in this README) that were pulled from model.js where an object of random pictures created by the Lorem Picsum API exists.
 
@@ -59,13 +59,16 @@ Highlights:
 
 10. When you type into the "Add a comment" section, the container will expand with your text. This will happens as long as what you type does not exceed 5 lines. Once it exceeds 5 lines, then a scroll bar shows up to allow you to scroll through what you have typed.
 
-11. Each post has a timestamp associated with it (examples: 30 minutes ago, 6 hours ago, 12 hours ago, etc.). This is when the post was supposedly made (fictional, of course). The way these fictional times were calculated was by finding the amount of milliseconds that passed between a post rendering and the first post rendering and multiplying this number by 6; whatever this product is is supposedly how many hours have passed. For example, if it took the application 2 milliseconds to render the second post after the first post, then the timestamp for the post will be 2 X 6 = 12. So, that post will say "12 HOURS AGO". The only timestamp that was not calculated this way was the timestamp for post 1; this timestamp is simply created by random number generation.
+11. Each post has a timestamp associated with it (examples: 30 minutes ago, 6 hours ago, 12 hours ago, etc.). This is when the post was supposedly made (fictional, of course). The way these fictional times were calculated was by finding the amount of milliseconds that passed between a post rendering and the first post rendering and multiplying this number by 6; whatever this product is is supposedly how many hours have passed. For example, if it took the application 2 milliseconds to render the second post after the first post, then the timestamp for the second post will be 2 X 6 = 12. So, that post will say "12 HOURS AGO". The only timestamp that was not calculated this way was the timestamp for post 1; this timestamp is simply created by random number generation.
 
 12. The timestamps explained above in #11 can be shown in minutes, hours, or days. Once the 7 day mark is exceeded, the Intl.DateTimeFormat object is used to give a month and a day. For example, if this application is run on March 22nd, and a timestamp calculation (explained above in #11) results in a timestamp of 10 days, instead of displaying "10 DAYS AGO" on a post, it will display "MARCH 12TH".
 
-#Responsiveness: 1) Once the viewport is below 729px, the ability to add a comment goes away. This imitates the behavior of the actual Instagram website. 2) Once the viewport width goes below 675px, the size of the pictures in the post start to shrink along with the width of the viewport in order to maintain their aspect ratio. 3) Once the viewport width goes below 675px, the entire post width changes with teh width of the viewport.
+13. <ins>**Responsive Highlights**</ins>:
+    a) Once the viewport is below 729px, the ability to add a comment goes away. This imitates the behavior of the actual Instagram website.
+    b) Once the viewport width goes below 675px, the size of the pictures in the post start to shrink along with the width of the viewport in order to maintain their aspect ratio.
+    c) Once the viewport width goes below 675px, the entire post width changes with the width of the viewport.
 
--> SUGGESTION SECTION (The box directly under the first post that is titled "Suggestions For You")
+#### Suggestion Section (The box directly under the first post that is titled "Suggestions For You")
 
 1. The users in the suggestion section were pulled from model.js, where an object of random users created by the Random User GeneratorAPI exists.
 
@@ -77,38 +80,42 @@ Highlights:
 
 5. When there are only few suggestions to display(the amount of suggestions is affected by settings in the config.js file, which will be discussed later in this README), the arrows disappear and you cannot scroll with swiping.
 
-#RESPONSIVENESS: Once the viewport width goes below 675px, the suggestion section width changes with the width of the viewport.
+6. <ins>**Responsive Highlight**</ins>: Once the viewport width goes below 675px, the suggestion section width changes with the width of the viewport.
 
-How to Run the Application:
+### How to Run the Application
 
-Getting Started
+#### Getting Started
 
 1. Download the "instagram-clone" off of GitHub.
 2. Open a terminal and navigate to whatever directory the instagram-clone folder was downloaded into.
 3. From this directory, type "npm i" and hit enter.
 4. From this directory, type "npm start" and hit enter.
-5. Open the localhost link that is shown after the npm start command.
+5. Open http://localhost:1234.
 
-Known issue: Parcel is used to bundle this application; the bundle is present in the newly created dist folder. There is a known issue with Parcel where sometimes, it will remove the attribute type = "module" from a script tag. If, when you opened the application after npm start, you DO NOT see 6 icons to the right of the search bar in the header, this issue has likely occured. To fix it and make it so that the icons are visible, navigate to the dist folder and open index.html. Right before the closing </head> tag, there should be the following script tag: <script defer="" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>. After defer="", type the following: type="module". Now, open the localhost again, and the icons should now appear.
+   <ins>**\*Known issue:**</ins> Parcel is used to bundle this application; the bundle is present in the newly created dist folder. There is a known issue with Parcel where sometimes, it will remove the attribute type = "module" from a script tag.
+   If, when you opened the application after npm start, you DO NOT see 6 icons to the right of the search bar in the header, this issue has likely occured. To fix it and make it so that the icons are visible, navigate to the dist folder and open index.html. Right before the closing `</head>` tag, there should be the following script tag:
+   `<script defer=" " src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>`
 
-Changing Settings
+   After defer="", type the following: type="module". Now, reload the page or open http://localhost:1234 again, and the icons should now appear.
+
+#### Changing Settings
 
 This application was designed so that the user has some control over what is included in the generated feed. The user has control by changing certain settings in config.js. Note that every time a change is made in config.js, as long as the localhost is still running the application, Parcel will automatically rebundle, meaning the page will automatically reload and implement whatever change was made.
 
-->Things That Can Be Changed in config.js
+##### Things That Can Be Changed in config.js
 
-#Personal user information: You can change your own username and name by changing the variables YOUR_PERSONAL_USERNAME and YOUR_PERSONAL_NAME. Note that you cannot change the profile picture from the config.js file (it will be me by default!). In order to change the profile picture, navigate to the directory called "static" in the instagram-clone directory. Put whatever you want to be your profile picture in this directory and name it "profile-picture.jpg".
+- **Personal user information:** You can change your own username and name by changing the variables YOUR_PERSONAL_USERNAME and YOUR_PERSONAL_NAME. Note that you cannot change the profile picture from the config.js file (it will be me by default!). In order to change the profile picture, navigate to the directory called "static" in the instagram-clone directory. Put whatever you want to be your profile picture in this directory and name it "profile-picture.jpg".
 
-#API URLs: These should not be changed by users on this application.
+- **API URLs:** These should not be changed by users on this application.
 
-#Maximum number of pictures per post: The maximum number of pictures on one post is controlled by MAX_PICS_PER_POST. IF the user sets this at, say, 5, this means that all of the posts that get generated can contain anywhere from 1 to 5 pictures in them.
+- **Maximum number of pictures per post:** The maximum number of pictures on one post is controlled by MAX_PICS_PER_POST. IF the user sets this at, say, 5, this means that all of the posts that get generated can contain anywhere from 1 to 5 pictures in them.
 
-#The number of words that a comment has before part of it gets hidden by "... more" : This is controlled by WORDS_PER_COMMENT
+- **The number of words that a comment can have before part of it gets hidden by "... more"**: This is controlled by WORDS_PER_COMMENT.
 
-#The number that gets displayed in the part of each post that says "View all <#> comments" : The lowest this number could be is set by MINIMUM_ADDITIONAL_COMMENTS_PER_POST and the highest this could be is MAXIMUM_ADDITIONAL_COMMENTS_PER_POST. Say you set the minimum to 10, and the maximum to 20. That would mean that the number of additional fictional comments that are made on each post can be any number from 10 to 20.
+- **The number that gets displayed in the part of each post that says "View all <#> comments"**: The lowest this number could be is set by MINIMUM_ADDITIONAL_COMMENTS_PER_POST and the highest this could be is MAXIMUM_ADDITIONAL_COMMENTS_PER_POST. Say you set the minimum to 10, and the maximum to 20. That would mean that the number of additional fictional comments that are made on each post can be any number from 10 to 20.
 
-#The maximum number of likes that can be on a post: This is set by MAXIMUM_ADDITIONAL_LIKES_PER_POST. If this is set at, say, 500, that means each post will have a random number of likes anywhere from 1 to 500.
+- **The maximum number of likes that can be on a post**: This is set by MAXIMUM_ADDITIONAL_LIKES_PER_POST. If this is set at, say, 500, that means each post will have a random number of likes anywhere from 1 to 500.
 
-#The total number of pictures that will be in the feed: This is set by TOTAL_NUMBER_OF_PICTURES. This is a VERY IMPORTANT setting. This, along with MAX_PICS_PER_POST indirectly determines how many posts there will be in the feed. If you want there to be very many posts, set TOTAL_NUMBER_OF_PICTURES to something high (no higher than 93 however) and set MAX_PICS_PER_POST to something relatively low (probably less than 5). If you were to set TOTAL_NUMBER_OF_PICTURES to 90 and MAX_PICS_PER_POST to 3, this would mean that enough posts with 1-3 pictures would have to be created to accomodate a total of 90 pictures. NOTE: The number of users that are in the stories bar and suggestion section also are affected by the total number of posts in the feed. The more posts you have in the feed, the more users you will have in the stories bar and the suggestion section.
+- **The total number of pictures that will be in the feed**: This is set by TOTAL_NUMBER_OF_PICTURES. This is a VERY IMPORTANT setting. This, along with MAX_PICS_PER_POST indirectly determines how many posts there will be in the feed. If you want there to be very many posts, set TOTAL_NUMBER_OF_PICTURES to something high (no higher than 93 however) and set MAX_PICS_PER_POST to something relatively low (probably less than 5). If you were to set TOTAL_NUMBER_OF_PICTURES to 90 and MAX_PICS_PER_POST to 3, this would mean that enough posts with 1-3 pictures would have to be created to accommodate a total of 90 pictures. NOTE: The number of users that are in the stories bar and suggestion section also are affected by the total number of posts in the feed. The more posts you have in the feed, the more users you will have in the stories bar and the suggestion section.
 
-#The timestamps on each post: This is affected by TIME_AMPLIFIER. To be very concise, the higher this number is, the larger your time values will be for your timestamps. Recommended to see the comment in the actual config.js file to better understand this.
+- **The timestamps on each post**: This is affected by TIME_AMPLIFIER. To be very concise, the higher this number is, the larger your time values will be for your timestamps. Recommended to see the comment in the actual config.js file to better understand this.
