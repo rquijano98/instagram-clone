@@ -64,9 +64,9 @@ This application uses HTML, CSS, JavaScript, and two APIs (Random User Generator
 12. The timestamps explained above in #11 can be shown in minutes, hours, or days. Once the 7 day mark is exceeded, the Intl.DateTimeFormat object is used to give a month and a day. For example, if this application is run on March 22nd, and a timestamp calculation (explained above in #11) results in a timestamp of 10 days, instead of displaying "10 DAYS AGO" on a post, it will display "MARCH 12TH".
 
 13. <ins>**Responsive Highlights**</ins>:
-    a) Once the viewport is below 729px, the ability to add a comment goes away. This imitates the behavior of the actual Instagram website.
-    b) Once the viewport width goes below 675px, the size of the pictures in the post start to shrink along with the width of the viewport in order to maintain their aspect ratio.
-    c) Once the viewport width goes below 675px, the entire post width changes with the width of the viewport.
+    - a) Once the viewport is below 729px, the ability to add a comment goes away. This - imitates the behavior of the actual Instagram website.
+    - b) Once the viewport width goes below 675px, the size of the pictures in the post start to shrink along with the width of the viewport in order to maintain their aspect ratio.
+    - c) Once the viewport width goes below 675px, the entire post width changes with the width of the viewport.
 
 #### Suggestion Section (The box directly under the first post that is titled "Suggestions For You")
 
