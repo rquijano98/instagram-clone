@@ -86,7 +86,7 @@ This application uses HTML, CSS, JavaScript, and two APIs (Random User Generator
 
 #### Getting Started
 
-<ins>**NOTE**</ins> These instructions assume the user has Node.js and Node package manager (npm) installed already.
+<ins>**NOTE**</ins>: These instructions assume the user has Node.js and Node package manager (npm) installed already.
 
 1. Download or clone the "instagram-clone" repository from GitHub.
 2. Open a terminal and navigate to newly created directory, which should just be called "instagram-clone."
