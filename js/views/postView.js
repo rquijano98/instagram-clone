@@ -154,13 +154,10 @@ export class PostView extends Views {
 
     // Makes it so clicking on the small user icons next to the "Liked by" section redirects you to the top of the page
     this._addLink(this._parentElement.querySelector(".images-portion"));
-    // this._addLink();
   }
 
   _createObservers() {
     const observerFunction = function (entries) {
-      // if (entries[0].isIntersecting) return;
-
       if (
         entries[0].target ===
         this._parentElement.querySelector(".post-image-list").firstElementChild
@@ -180,7 +177,6 @@ export class PostView extends Views {
     const observerOptions = {
       root: this._parentElement,
       threshold: 0.94,
-      // rootMargin: "30px",
     };
 
     const storiesObserver = new IntersectionObserver(
@@ -221,7 +217,6 @@ export class PostView extends Views {
         }
       });
 
-      // if(isIntersecting)
     };
 
     const observerOptions2 = {
@@ -286,7 +281,6 @@ export class PostView extends Views {
 
           const xScroll = xCoordOfCurPic - xCoordOfPicContainer;
 
-          // if ()
           imageWindow.scrollBy({
             // If the xCoord of the picture container is 1 (this only happens when the viewport is so shrunk that it is in direct contact with the images in the picture container), then the scroll to must scroll by 1 extra pixel; this is sort of a brute force solution to a problem that was happening where there would be "underscrolling" by just 1 pixel when the viewport was shrunken to the point that the images touch its edge
             left: xScroll,

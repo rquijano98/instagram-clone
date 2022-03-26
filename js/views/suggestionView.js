@@ -114,8 +114,6 @@ class SuggestionView extends Views {
 
   _createObserver() {
     const observerFunction = function (entries) {
-      // if (entries[0].isIntersecting) return;
-
       if (entries[0].target === this._parentElement.firstElementChild)
         this._grandparentElement
           .querySelector(".left-arrow")
