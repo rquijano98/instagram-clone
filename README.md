@@ -50,9 +50,9 @@ This application was designed so that the user has some control over what is inc
 
 Every highlight is listed out below by section below. This list is very long to read (tl;dr), so I will list out the three most noteworthy ones here and put in brackets where they came from in the list.
 
-- [Number 3 from **Suggestion Section**] Every user card can be closed by pressing the X button in the top right. A CSS transition is used to render the smooth closing animation that happens when a user card is closed.
+- [Number 3 from **Suggestion Section**] Every user card (in the "Suggested for You" container immediately after the first post) can be closed by pressing the X button in the top right. A CSS transition is used to render the smooth closing animation that happens when a user card is closed.
 - [Number 3 from **Posts**] If a post has more than one picture, swiping (scrolling without clicking on arrows) IS supported. If user tries to only "partially swipe" and leave part of two different images in frame at the same time, the image with more content in frame will automatically get scrolled to.
-- [Number 10 from **Posts**] When you type into the "Add a comment" section, the container will expand with your text. This will happen as long as what you type does not exceed 5 lines. Once it exceeds 5 lines, then a scroll bar shows up to allow you to scroll through what you have typed.
+- [Number 10 from **Posts**] When you type into the "Add a comment" section of a post, the container will expand with your text. This will happen as long as what you type does not exceed 5 lines. Once it exceeds 5 lines, then a scroll bar shows up to allow you to scroll through what you have typed.
 
 Every highlight by section will now be listed below.
 
